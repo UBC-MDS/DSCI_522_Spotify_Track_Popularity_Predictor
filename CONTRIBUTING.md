@@ -1,4 +1,4 @@
-Welcome to Life-Expectancy-Predictor project by Group 27 Students of 2021/2022 UBC Master of Data Science cohort!
+Welcome to Spotify-Track-Popularity-Predictor project by Group 27 Master of Data Science Students, University of British Columbia
 
 This outlines how to make contributions and changes to this project.
 
