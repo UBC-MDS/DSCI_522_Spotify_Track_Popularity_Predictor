@@ -17,7 +17,19 @@ from docopt import docopt
 opt = docopt(__doc__)
 
 def main(url, out_file):
+  
+  # test if the url exist
+  try: 
+    request = requests.get(url)
+    request.status_code == 200
+  except Exception as req:
+    print("Website at the provided url does not exist.")
+    print(req)
+    
+  # read in data
   data = pd.read_csv(url)
+  
+  # write the file
   try:
     data.to_csv(out_file, index = False)
   except:
