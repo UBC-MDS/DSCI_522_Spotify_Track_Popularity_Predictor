@@ -1,0 +1,74 @@
+---
+title: "Predicting Spotify track popularity based on certain audio features"
+author: "Group 27 </br>"
+date: "2021/11/25 (updated: `r Sys.Date()`)"
+always_allow_html: true
+output: 
+  html_document:
+    toc: true
+  github_document:
+    toc: true
+bibliography: breast_cancer_refs.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(knitr)
+library(kableExtra)
+library(tidyverse)
+library(caret)
+```
+
+```{r load model results}
+model <- readRDS("../results/final_model.rds")
+model_quality <- readRDS("../results/final_model_quality.rds")
+```
+
+# Summary
+
+Here we attempt to build a classification model using the k-nearest neighbours algorithm which can use breast cancer tumour image measurements to predict whether a newly discovered breast cancer tumour is benign (i.e., is not harmful and does not require treatment) or malignant (i.e., is harmful and requires treatment intervention). Our final classifier performed fairly well on an unseen test data set, with Cohen's Kappa score of `r round(model_quality$overall[2], 1)` and an overall accuracy calculated to be `r round(model_quality$overall[1], 2)`. On the `r sum(model_quality$table)` test data cases, it correctly predicted `r model_quality$table[2, 2] + model_quality$table[1, 1]`. However it incorrectly predicted `r model_quality$table[2, 1] + model_quality$table[1, 2]` cases, and importantly these cases were false negatives; predicting that a tumour is benign when in fact it is malignant. These kind of incorrect predictions could have a severly negative impact on a patients health outcome, thus we recommend continuing study to improve this prediction model before it is put into production in the clinic.
+
+We use Ridge algorithm here to build a regression model to predict the popularity of spotify tracks based on features like danceability, loudness, tempo etc. The popularity score ranges from 0 to 100. A popularity score of 0 means the the song has minute popularity and a popularity score of 100 means the sonf is extremely popular.
+
+# Introduction
+
+Some songs sit atop popularity charts like the Billboard charts while certain other songs comfortably sit at the bottom of the charts. Some songs don't even chart at all. This pose an interesting question to us on what exactly makes a song popular and we ask if we can be able to predict how popular a song will get. based on certain features. Some songs are unexceptionally popular while some other songs are not as popular. This is an attempt to answer this interesting question. We attempt here to make a prediction on the popularity of a song based on certain features.
+
+According to this [report](https://www.musicbusinessworldwide.com/over-60000-tracks-are-now-uploaded-to-spotify-daily-thats-nearly-one-per-second/ "www.musicbusinessworldwide.com"), approximately 137 million new songs are released every year, and only about 14 records have sold 15 million physical copies or more in global history. Therefore, it is important to determine what exactly determines a track popularity and specifically make predictions on how popular a song will get based on based on features like danceability, loudness, tempo etc.
+
+# Methods
+
+## Data
+
+The dataset used in this project was sourced from Tidy Tuesday's github repo [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-09-14/readme.md), and particularly [here](https://query.data.world/s/gvgzoh3hhfj4lg4rbv3x4ah6rm6ta4). The data, however, originally comes from [Data.World](https://data.world/kcmillersean/billboard-hot-100-1958-2017#), [Billboard.com](http://billboard.com/) and Spotify. EAch row from the dataset represents a song's features and a target column specifying the song's popularity on a scale of 0 (least popularity) to 100 (most popularity).
+
+## Analysis
+
+Ridge model was built to answer our research question (to predict spotify tracks popularity). This is a regression solution and predictions range from 0 (least popularity) to 100 (most popularity). All features in the original dataset were used to fit the model with the exceptions of 'song_id', 'spotify_track_id', 'spotify_track_album' features. A 10-fold cross-validation was used for hyperparameter optimization. The code used to perform this analysis can be found [here](https://github.com/UBC-MDS/DSCI_522_Spotify_Track_Popularity_Predictor/blob/main/src/preprocess_n_model.py).
+
+# Results & Discussion
+
+To look at whether each of the predictors might be useful to predict the tumour class, we plotted the distributions of each predictor from the training data set and coloured the distribution by class (benign: blue and malignant: orange). In doing this we see that class distributions for all of the mean and max predictors for all the measurements overlap somewhat, but do show quite a difference in their centres and spreads. This is less so for the standard error (se) predictors. In particular, the standard errors of fractal dimension, smoothness, symmetry and texture look very similar in both the distribution centre and spread. Thus, we choose to omit these from our model.
+
+```{r predictor-distributions, echo=FALSE, fig.cap="Figure 1. Comparison of the empirical distributions of training data predictors between benign and malignant tumour masses.", out.width = '100%'}
+knitr::include_graphics("../results/predictor_distributions_across_class.png")
+```
+
+We chose to use a simple classification model using the k-nearest neighbours algorithm. To find the model that best predicted whether a tumour was benign or malignant, we performed 30-fold cross validation using Cohen's Kappa as our metric of model prediction performance to select K (number of nearest neighbours). We observed that the optimal K was `r model$bestTune$k`.
+
+```{r choosing-k, echo=FALSE, fig.cap="Figure 2. Results from 30-fold cross validation to choose K. Cohen's Kappa was used as the classification metric as K was varied.", out.width = '60%'}
+knitr::include_graphics("../results/kappa_vs_k.png")
+```
+
+Our prediction model performed quite well on test data, with a final Cohen's Kappa score of `r round(model_quality$overall[2], 1)` and an overall accuracy calculated to be `r round(model_quality$overall[1], 2)`. Other indicators that our model performed well come from the confusion matrix, where it only made `r model_quality$table[2, 1] + model_quality$table[1, 2]` mistakes. However all `r model_quality$table[2, 1] + model_quality$table[1, 2]` mistakes were predicting a malignant tumour as benign, given the implications this has for patients health, this model is not good enough to yet implement in the clinic.
+
+```{r confusion-matrix, echo=FALSE}
+kable(model_quality$table, caption = "Table 1. Confusion matrix of model performance on test data.") %>%
+  kable_styling(full_width = FALSE) %>%
+  add_header_above(c(" ", "Reference" = 2)) %>% 
+  pack_rows("Predicted", 1, 2)
+```
+
+To further improve this model in future with hopes of arriving one that could be used in the clinic, there are several things we can suggest. First, we could look closely at the 4 misclassified observations and compare them to several observations that were classified correctly (from both classes). The goal of this would be to see which feature(s) may be driving the misclassification and explore whether any feature engineering could be used to help the model better predict on observations that it currently is making mistakes on. Additionally, we would try seeing whether we can get improved predictions using other classifiers. One classifier we might try is random forest forest because it automatically allows for feature interaction, where k-nn does not. Finally, we also might improve the usability of the model in the clinic if we output and report the probability estimates for predictions. If we cannot prevent misclassifications through the approaches suggested above, at least reporting a probability estimates for predictions would allow the clinician to know how confident the model was in its prediction. Thus the clinician may then have the ability to perform additional diagnostic assays if the probability estimates for prediction of a given tumour class is not very high.
+
+# References
