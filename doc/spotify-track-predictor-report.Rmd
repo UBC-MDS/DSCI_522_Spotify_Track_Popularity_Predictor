@@ -34,7 +34,7 @@ According to this [report](https://www.musicbusinessworldwide.com/over-60000-tra
 
 ## Data
 
-The dataset used in this project was sourced from Tidy Tuesday's github repo [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-09-14/readme.md), and particularly [here](https://query.data.world/s/gvgzoh3hhfj4lg4rbv3x4ah6rm6ta4). The data, however, originally comes from [Data.World](https://data.world/kcmillersean/billboard-hot-100-1958-2017#), [Billboard.com](http://billboard.com/) and Spotify. EAch row from the dataset represents a song's features and a target column specifying the song's popularity on a scale of 0 (least popularity) to 100 (most popularity).
+The dataset used in this project was sourced from Tidy Tuesday's github repo [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-09-14/readme.md), and particularly [here](https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-09-14/audio_features.csv). The data, however, originally comes from [Data.World](https://data.world/kcmillersean/billboard-hot-100-1958-2017#), [Billboard.com](http://billboard.com/) and Spotify. EAch row from the dataset represents a song's features and a target column specifying the song's popularity on a scale of 0 (least popularity) to 100 (most popularity).
 
 ## Analysis
 
@@ -64,7 +64,7 @@ kable(read_csv("../results/best_hyperparameters.csv"), caption = "Table 2. Best 
 
 In order to evaluate the performance of our model, we made some predictions and compared the predicted values with the actual values. We have plotted this below. The Goodness of Fit below is not unreasonable and shows the viability of the ridge model.
 
-```{r predict_vs_test, echo=FALSE, fig.cap="Figure 1. Comparison of actual vs. predicted values", out.width = '100%'}
+```{r predict_vs_test, echo=FALSE, fig.cap="Figure 2. Comparison of actual vs. predicted values", out.width = '100%'}
 knitr::include_graphics("../results/predict_vs_test.png")
 ```
 
