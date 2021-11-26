@@ -11,19 +11,22 @@ Options:
 --out_test_df=<out_file>     Path (including filename) of where to locally write the test data
 """
 
+import numpy as np
 import pandas as pd
 import os
 from docopt import docopt
 from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
+
 
 opt = docopt(__doc__)
 
 def main(file_path, out_train_df, out_test_df ):
     data= pd.read_csv(file_path)
 
-    data = data.drop(columns = ["spotify_track_preview_url"]) #drop the URL columns as it has so many NA and does not have useful information
-    data = data.dropna()                                      #drop the NA rows
+    data = data.drop(columns = ["spotify_track_preview_url"])                   #drop the URL columns as it has so many NA and does not have useful information
     data['spotify_genre'] = data['spotify_genre'].str[1:-1].str.replace("'","") # convert the spotify_genre to string 
+    data.iloc[:,3].replace("", np.NAN, inplace=True)                            #repalce the blank cells with NA
+    data = data.dropna()                                                        #drop the NA rows
     
 
     train_df, test_df = train_test_split(data, test_size=0.2, random_state=123)
