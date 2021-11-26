@@ -10,26 +10,36 @@ Options:
 """
 
 import altair as alt
+import numpy as np
 import pandas as pd
 import os
 from docopt import docopt
 from sklearn.compose import ColumnTransformer, make_column_transformer
 from sklearn.impute import SimpleImputer
 from sklearn.pipeline import Pipeline, make_pipeline
-from sklearn.model_selection import cross_val_score, cross_validate, train_test_split
 from sklearn.feature_extraction.text import CountVectorizer
+from sklearn.linear_model import LogisticRegression, Ridge, RidgeCV
 from sklearn.preprocessing import (
     OneHotEncoder,
     OrdinalEncoder,
     StandardScaler,
 )
+from sklearn.model_selection import (
+    GridSearchCV,
+    RandomizedSearchCV,
+    ShuffleSplit,
+    cross_val_score,
+    cross_validate,
+    train_test_split,
+)
 
-pt = docopt(__doc__)
+opt = docopt(__doc__)
 
 def main(file_path, out_file):
-    df = pd.read_csv(file_path)
-    X_train, y_train = df.drop(columns=["spotify_track_popularity"]), df["spotify_track_popularity"]
-    
+    df_train = pd.read_csv(f'{file_path}/train_df.csv')
+    df_test = pd.read_csv(f'{file_path}/test_df.csv')
+    X_train, y_train = df_train.drop(columns=["spotify_track_popularity"]), df_train["spotify_track_popularity"]
+    X_test, y_test = df_test.drop(columns=["spotify_track_popularity"]), df_test["spotify_track_popularity"]
     
     numeric_features  = [
         'spotify_track_duration_ms',
@@ -57,39 +67,54 @@ def main(file_path, out_file):
         ("drop", drop_features)
     )
 
+    pipe = make_pipeline(preprocessor, Ridge())
+    cv_df = pd.DataFrame(cross_validate(pipe, X_train, y_train, cv=10, return_train_score=True))
 
+    cv_df.to_csv(f'{out_file}/cv_df.csv', index = False)    # save the cv file 
+    
 
+    #random seach hyperparameters
+    
+    param_grid = {
+        "ridge__alpha": np.logspace(-3,2,6),
+        "columntransformer__countvectorizer-1__binary": np.array([True, False]),
+        "columntransformer__countvectorizer-1__max_features": np.arange(1000, 10000, 20000),
+        "columntransformer__countvectorizer-2__binary": np.array([True, False]),
+        "columntransformer__countvectorizer-2__max_features": np.arange(1000, 10000, 20000)
+    }
 
-
-
-
-    y_test = np.random.randint(100, size=100)
-    y_predicted = np.random.randint(100, size=100)
-
-    df = pd.DataFrame({'y_test':y_test, 'y_predicted':y_predicted})
-    p = alt.Chart(df).mark_point(filled=True).encode(
-    alt.X('y_test', title='Predicted values of Spotify popularities'),
-    alt.Y('y_predicted', title='True values of Spotify popularities')
+    random_search = RandomizedSearchCV(
+        pipe, param_distributions=param_grid, n_jobs=-1, n_iter=10, cv=5
     )
+    
+    random_search.fit(X_train, y_train)
 
-    p2 = p+p.transform_regression('y_test', 'y_predicted').mark_line()
-    p2.save('test.png')
+    random_search_results = pd.DataFrame(random_search.cv_results_)[
+        [
+            "mean_test_score",
+            "param_ridge__alpha",
+            "param_columntransformer__countvectorizer-1__max_features",
+            "param_columntransformer__countvectorizer-1__binary",
+            "param_columntransformer__countvectorizer-2__max_features",
+            "param_columntransformer__countvectorizer-2__binary",
+            "rank_test_score",
+        ]
+    ].set_index("rank_test_score").sort_index()
+  
+    random_search_results.to_csv(f'{out_file}/best_hyperparameters.csv', index = False)   # save the random_search results
 
+    #Evaluating on the test set 
+    y_predicted = random_search.predict(X_test)
+    df = pd.DataFrame({'y_test':y_test, 'y_predicted':y_predicted})
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    plot = alt.Chart(df, title= "Predicted versus true Spotify popularities").mark_point(filled=True, clip=True).encode(
+        alt.X('y_test', title='Predicted values of Spotify popularities'),
+        alt.Y('y_predicted', title='True values of Spotify popularities', scale=alt.Scale(domain=(0, 100)))
+    )
+    plot_2 = plot + plot.mark_line(color = 'black').encode(
+        alt.Y('y_test')
+    )
+    plot_2.save(f'{out_file}/predict_vs_test.png')   #needs altair_saver package
 
 if __name__ == "__main__":
   main(opt["--file_path"], opt["--out_file"])
