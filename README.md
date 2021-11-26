@@ -23,16 +23,16 @@ The steps we run our analysis will follow the flowchart bellow.
 The final report can be found here.
 
 
-#Dependencies
+# Dependencies
 * Python 3.9.7 and Python packages:
-    *docopt=0.6.2
-    *pandas=1.3.4
-    *sklearn= 1.0.1
+    * docopt=0.6.2
+    * pandas=1.3.4
+    * sklearn= 1.0.1
 
-*R version 4.1.1 and R packages:
-    *knitr=1.3
-    *tidyverse=1.3.1
-    *dplyr=1.0.7
+* R version 4.1.1 and R packages:
+    * knitr=1.3
+    * tidyverse=1.3.1
+    * dplyr=1.0.7
     
 
 # References
