@@ -23,7 +23,8 @@ main <- function(train, out_dir) {
   # visualize predictor distributions by class
   numeric_cor <- read_csv(train) |> 
     select_if(is.numeric) |> 
-    ggpairs(lower=list(continuous=wrap(ggally_smooth, size = 1, color = "dodgerblue", alpha = 0.5)))
+    ggpairs(lower=list(continuous=wrap(ggally_smooth, size = 1, color = "dodgerblue", alpha = 0.5,
+                                       gridLabelSize=20)))
   
   # save the plpt
   ggsave(paste0(out_dir, "/paired_distribution_and_correlation.png"), 
