@@ -19,11 +19,6 @@ library(tidyverse)
 library(caret)
 ```
 
-```{r load model results}
-model <- readRDS("../results/final_model.rds")
-model_quality <- readRDS("../results/final_model_quality.rds")
-```
-
 # Summary
 
 Here we attempt to build a classification model using the k-nearest neighbours algorithm which can use breast cancer tumour image measurements to predict whether a newly discovered breast cancer tumour is benign (i.e., is not harmful and does not require treatment) or malignant (i.e., is harmful and requires treatment intervention). Our final classifier performed fairly well on an unseen test data set, with Cohen's Kappa score of `r round(model_quality$overall[2], 1)` and an overall accuracy calculated to be `r round(model_quality$overall[1], 2)`. On the `r sum(model_quality$table)` test data cases, it correctly predicted `r model_quality$table[2, 2] + model_quality$table[1, 1]`. However it incorrectly predicted `r model_quality$table[2, 1] + model_quality$table[1, 2]` cases, and importantly these cases were false negatives; predicting that a tumour is benign when in fact it is malignant. These kind of incorrect predictions could have a severly negative impact on a patients health outcome, thus we recommend continuing study to improve this prediction model before it is put into production in the clinic.
@@ -48,16 +43,23 @@ Ridge model was built to answer our research question (to predict spotify tracks
 
 # Results & Discussion
 
-To look at whether each of the predictors might be useful to predict the tumour class, we plotted the distributions of each predictor from the training data set and coloured the distribution by class (benign: blue and malignant: orange). In doing this we see that class distributions for all of the mean and max predictors for all the measurements overlap somewhat, but do show quite a difference in their centres and spreads. This is less so for the standard error (se) predictors. In particular, the standard errors of fractal dimension, smoothness, symmetry and texture look very similar in both the distribution centre and spread. Thus, we choose to omit these from our model.
+It is usually very important to look at how the features are co-related and to see what their pairwise distributions look like. Here, the blue plots (and a fitting line) represents the paired distributions of the features, and the other boxes are the paired corrrelations of the features. As can be seen, the correlations are fair and not unreasonable, hence the features can be used together for building the Ridge model that seeks to answer the predictive question.
 
-```{r predictor-distributions, echo=FALSE, fig.cap="Figure 1. Comparison of the empirical distributions of training data predictors between benign and malignant tumour masses.", out.width = '100%'}
-knitr::include_graphics("../results/predictor_distributions_across_class.png")
+```{r paired_distribution_and_correlation, echo=FALSE, fig.cap="Figure 1. Pairwise distributions and correlations of all features", out.width = '100%'}
+knitr::include_graphics("../results/paired_distribution_and_correlation.png")
 ```
 
 We chose to use a simple classification model using the k-nearest neighbours algorithm. To find the model that best predicted whether a tumour was benign or malignant, we performed 30-fold cross validation using Cohen's Kappa as our metric of model prediction performance to select K (number of nearest neighbours). We observed that the optimal K was `r model$bestTune$k`.
 
+We adopted a simple linear regression model - Ridge algorithm. Our choice of Ridge stems from the fact it it is regularized and take care of the multi-collinearity problem. A 10-fold cross validation was carried out and the train and validation $R^2$ scores reported in the table below from cross-validation
+
+```{r confusion-matrix, echo=FALSE}
+kable(read_csv("../results/cv_df.csv"), caption = "Table 1. Train and validation scores from cross-validation") %>%
+  kable_styling(full_width = FALSE)
+```
+
 ```{r choosing-k, echo=FALSE, fig.cap="Figure 2. Results from 30-fold cross validation to choose K. Cohen's Kappa was used as the classification metric as K was varied.", out.width = '60%'}
-knitr::include_graphics("../results/kappa_vs_k.png")
+knitr::include_graphics("../results/cv_df.csv")
 ```
 
 Our prediction model performed quite well on test data, with a final Cohen's Kappa score of `r round(model_quality$overall[2], 1)` and an overall accuracy calculated to be `r round(model_quality$overall[1], 2)`. Other indicators that our model performed well come from the confusion matrix, where it only made `r model_quality$table[2, 1] + model_quality$table[1, 2]` mistakes. However all `r model_quality$table[2, 1] + model_quality$table[1, 2]` mistakes were predicting a malignant tumour as benign, given the implications this has for patients health, this model is not good enough to yet implement in the clinic.
