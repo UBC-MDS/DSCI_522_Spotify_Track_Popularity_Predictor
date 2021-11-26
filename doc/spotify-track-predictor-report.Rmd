@@ -34,7 +34,7 @@ According to this [report](https://www.musicbusinessworldwide.com/over-60000-tra
 
 ## Data
 
-The dataset used in this project was sourced from Tidy Tuesday's github repo [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-09-14/readme.md), and particularly [here](https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-09-14/audio_features.csv). The data, however, originally comes from [Data.World](https://data.world/kcmillersean/billboard-hot-100-1958-2017#), [Billboard.com](http://billboard.com/) and Spotify. EAch row from the dataset represents a song's features and a target column specifying the song's popularity on a scale of 0 (least popularity) to 100 (most popularity).
+The dataset used in this project was sourced from Tidy Tuesday's github repo [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-09-14/readme.md), and particularly [here](https://query.data.world/s/gvgzoh3hhfj4lg4rbv3x4ah6rm6ta4). The data, however, originally comes from [Data.World](https://data.world/kcmillersean/billboard-hot-100-1958-2017#), [Billboard.com](http://billboard.com/) and Spotify. EAch row from the dataset represents a song's features and a target column specifying the song's popularity on a scale of 0 (least popularity) to 100 (most popularity).
 
 ## Analysis
 

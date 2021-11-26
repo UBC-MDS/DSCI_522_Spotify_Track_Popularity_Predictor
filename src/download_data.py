@@ -12,6 +12,7 @@ Options:
 
 import pandas as pd
 import os
+import requests
 from docopt import docopt
 
 opt = docopt(__doc__)

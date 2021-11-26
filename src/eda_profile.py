@@ -14,6 +14,14 @@ from docopt import docopt
 from pandas_profiling import ProfileReport
 from sklearn.model_selection import train_test_split
 
+import os
+    
+from os import path
+    #trying to make shift_graphs directory if it does not already exist:
+
+if not os.path.exists('eda'):
+  os.mkdir('eda')
+
 
 
 opt = docopt(__doc__)
