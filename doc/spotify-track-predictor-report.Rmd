@@ -8,7 +8,8 @@ output:
     toc: true
   github_document:
     toc: true
-bibliography: breast_cancer_refs.bib
+bibliography: references.bib
+nocite: '@*'
 ---
 
 ```{r setup, include=FALSE}
@@ -49,14 +50,14 @@ knitr::include_graphics("../results/paired_distribution_and_correlation.png")
 
 We adopted a simple linear regression model - Ridge algorithm. Our choice of Ridge stems from the fact it it is regularized and take care of the multi-collinearity problem. A 10-fold cross validation was carried out and the train and validation $R^2$ scores reported in the table below from cross-validation
 
-```{r confusion-matrix, echo=FALSE}
+```{r cross-validation, echo=FALSE}
 kable(read_csv("../results/cv_df.csv"), caption = "Table 1. Train and validation scores from cross-validation") %>%
   kable_styling(full_width = FALSE)
 ```
 
 The following table shows the results of RandomizedSearchCV for determining the best hyperparameters for athe Ridge model.
 
-```{r confusion-matrix, echo=FALSE}
+```{r best_hyperparameters, echo=FALSE}
 kable(read_csv("../results/best_hyperparameters.csv"), caption = "Table 2. Best hyperparameters from RandomizedSearchCV") %>%
   kable_styling(full_width = FALSE)
 ```
