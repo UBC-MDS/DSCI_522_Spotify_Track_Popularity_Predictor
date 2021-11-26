@@ -36,6 +36,7 @@ from sklearn.model_selection import (
 opt = docopt(__doc__)
 
 def main(file_path, out_file):
+
     df_train = pd.read_csv(f'{file_path}/train_df.csv')
     df_test = pd.read_csv(f'{file_path}/test_df.csv')
     X_train, y_train = df_train.drop(columns=["spotify_track_popularity"]), df_train["spotify_track_popularity"]
@@ -70,10 +71,14 @@ def main(file_path, out_file):
     pipe = make_pipeline(preprocessor, Ridge())
     cv_df = pd.DataFrame(cross_validate(pipe, X_train, y_train, cv=10, return_train_score=True))
 
-    cv_df.to_csv(f'{out_file}/cv_df.csv', index = False)    # save the cv file 
+    try:
+        cv_df.to_csv(f'{out_file}/cv_df.csv', index = False)    # save the cv file 
+    except:
+        os.makedirs(os.path.dirname(f'{out_file}/cv_df.csv'))
+        cv_df.to_csv(f'{out_file}/cv_df.csv', index = False)
     
 
-    #random seach hyperparameters
+    #random seach hyperparameters model tunning
     
     param_grid = {
         "ridge__alpha": np.logspace(-3,2,6),
@@ -101,7 +106,12 @@ def main(file_path, out_file):
         ]
     ].set_index("rank_test_score").sort_index()
   
-    random_search_results.to_csv(f'{out_file}/best_hyperparameters.csv', index = False)   # save the random_search results
+    try:
+        random_search_results.to_csv(f'{out_file}/best_hyperparameters.csv', index = False)   # save the random_search results
+    except:
+        os.makedirs(os.path.dirname(f'{out_file}/best_hyperparameters.csv'))
+        random_search_results.to_csv(f'{out_file}/best_hyperparameters.csv', index = False)
+    
 
     #Evaluating on the test set 
     y_predicted = random_search.predict(X_test)
@@ -114,7 +124,18 @@ def main(file_path, out_file):
     plot_2 = plot + plot.mark_line(color = 'black').encode(
         alt.Y('y_test')
     )
-    plot_2.save(f'{out_file}/predict_vs_test.png')   #needs altair_saver package
+    
+    try:
+        plot_2.save(f'{out_file}/predict_vs_test.png')   #needs altair_saver package
+    except:
+        os.makedirs(os.path.dirname(f'{out_file}/predict_vs_test.png'))
+        plot_2.to_csv(f'{out_file}/predict_vs_test.png', index = False)
+
+    
+
+
+
+
 
 if __name__ == "__main__":
   main(opt["--file_path"], opt["--out_file"])
