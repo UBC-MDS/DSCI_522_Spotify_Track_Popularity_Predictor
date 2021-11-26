@@ -21,8 +21,6 @@ library(caret)
 
 # Summary
 
-Here we attempt to build a classification model using the k-nearest neighbours algorithm which can use breast cancer tumour image measurements to predict whether a newly discovered breast cancer tumour is benign (i.e., is not harmful and does not require treatment) or malignant (i.e., is harmful and requires treatment intervention). Our final classifier performed fairly well on an unseen test data set, with Cohen's Kappa score of `r round(model_quality$overall[2], 1)` and an overall accuracy calculated to be `r round(model_quality$overall[1], 2)`. On the `r sum(model_quality$table)` test data cases, it correctly predicted `r model_quality$table[2, 2] + model_quality$table[1, 1]`. However it incorrectly predicted `r model_quality$table[2, 1] + model_quality$table[1, 2]` cases, and importantly these cases were false negatives; predicting that a tumour is benign when in fact it is malignant. These kind of incorrect predictions could have a severly negative impact on a patients health outcome, thus we recommend continuing study to improve this prediction model before it is put into production in the clinic.
-
 We use Ridge algorithm here to build a regression model to predict the popularity of spotify tracks based on features like danceability, loudness, tempo etc. The popularity score ranges from 0 to 100. A popularity score of 0 means the the song has minute popularity and a popularity score of 100 means the sonf is extremely popular.
 
 # Introduction
@@ -63,6 +61,12 @@ kable(read_csv("../results/best_hyperparameters.csv"), caption = "Table 2. Best 
   kable_styling(full_width = FALSE)
 ```
 
-To further improve this model in future with hopes of arriving one that could be used in the clinic, there are several things we can suggest. First, we could look closely at the 4 misclassified observations and compare them to several observations that were classified correctly (from both classes). The goal of this would be to see which feature(s) may be driving the misclassification and explore whether any feature engineering could be used to help the model better predict on observations that it currently is making mistakes on. Additionally, we would try seeing whether we can get improved predictions using other classifiers. One classifier we might try is random forest forest because it automatically allows for feature interaction, where k-nn does not. Finally, we also might improve the usability of the model in the clinic if we output and report the probability estimates for predictions. If we cannot prevent misclassifications through the approaches suggested above, at least reporting a probability estimates for predictions would allow the clinician to know how confident the model was in its prediction. Thus the clinician may then have the ability to perform additional diagnostic assays if the probability estimates for prediction of a given tumour class is not very high.
+In order to evaluate the performance of our model, we made some predictions and compared the predicted values with the actual values. We have plotted this below. The Goodness of Fit below is not unreasonable and shows the viability of the ridge model.
+
+```{r predict_vs_test, echo=FALSE, fig.cap="Figure 1. Comparison of actual vs. predicted values", out.width = '100%'}
+knitr::include_graphics("../results/predict_vs_test.png")
+```
+
+In order to improve this model in the future where we can have excellent reliabilty on the model predictions, we will need the right combination of data. The data used here are mostly Spotify and Billboard-based. In the future, we'll look at aggregating data from other sources as well. Also, the ridge model deployed did not perform greatly, we'll look into more sophisticated feature engineering and model training in the future.
 
 # References
