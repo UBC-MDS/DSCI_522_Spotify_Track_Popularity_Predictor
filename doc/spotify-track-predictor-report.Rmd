@@ -4,9 +4,9 @@ author: "Group 27 </br>"
 date: "2021/11/25 (updated: `r Sys.Date()`)"
 always_allow_html: true
 output: 
-  html_document:
-    toc: true
   github_document:
+    toc: true
+  html_document:
     toc: true
 bibliography: references.bib
 nocite: '@*'
