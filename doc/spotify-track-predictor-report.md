@@ -17,7 +17,7 @@ We use Ridge algorithm here to build a regression model to predict the
 popularity of spotify tracks based on features like danceability,
 loudness, tempo etc. The popularity score ranges from 0 to 100. A
 popularity score of 0 means the the song has minute popularity and a
-popularity score of 100 means the sonf is extremely popular.
+popularity score of 100 means the song is extremely popular.
 
 # Introduction
 
@@ -51,7 +51,7 @@ and particularly
 [here](https://query.data.world/s/gvgzoh3hhfj4lg4rbv3x4ah6rm6ta4). The
 data, however, originally comes from
 [Data.World](https://data.world/kcmillersean/billboard-hot-100-1958-2017#),
-[Billboard.com](http://billboard.com/) and Spotify. EAch row from the
+[Billboard.com](http://billboard.com/) and Spotify. Each row from the
 dataset represents a song’s features and a target column specifying the
 song’s popularity on a scale of 0 (least popularity) to 100 (most
 popularity).
@@ -62,7 +62,7 @@ Ridge model was built to answer our research question (to predict
 spotify tracks popularity). This is a regression solution and
 predictions range from 0 (least popularity) to 100 (most popularity).
 All features in the original dataset were used to fit the model with the
-exceptions of ‘song_id’, ‘spotify_track_id’, ‘spotify_track_album’
+exceptions of ‘song_id,’ ‘spotify_track_id,’ ‘spotify_track_album’
 features. A 10-fold cross-validation was used for hyperparameter
 optimization. The code used to perform this analysis can be found
 [here](https://github.com/UBC-MDS/DSCI_522_Spotify_Track_Popularity_Predictor/blob/main/src/preprocess_n_model.py).
@@ -72,7 +72,7 @@ optimization. The code used to perform this analysis can be found
 It is usually very important to look at how the features are co-related
 and to see what their pairwise distributions look like. Here, the blue
 plots (and a fitting line) represents the paired distributions of the
-features, and the other boxes are the paired corrrelations of the
+features, and the other boxes are the paired correlations of the
 features. As can be seen, the correlations are fair and not
 unreasonable, hence the features can be used together for building the
 Ridge model that seeks to answer the predictive question.
@@ -84,16 +84,6 @@ choice of Ridge stems from the fact it it is regularized and take care
 of the multi-collinearity problem. A 10-fold cross validation was
 carried out and the train and validation *R*<sup>2</sup> scores reported
 in the table below from cross-validation
-
-    ## Rows: 10 Columns: 4
-
-    ## ── Column specification ────────────────────────────────────────────────────────
-    ## Delimiter: ","
-    ## dbl (4): fit_time, score_time, test_score, train_score
-
-    ## 
-    ## ℹ Use `spec()` to retrieve the full column specification for this data.
-    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
@@ -118,97 +108,97 @@ train_score
 <tbody>
 <tr>
 <td style="text-align:right;">
-0.5952358
+5.1090078
 </td>
 <td style="text-align:right;">
-0.0300763
+0.0688303
 </td>
 <td style="text-align:right;">
-0.4782111
+0.4782244
 </td>
 <td style="text-align:right;">
-0.7925297
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-0.5356359
-</td>
-<td style="text-align:right;">
-0.0294011
-</td>
-<td style="text-align:right;">
-0.4740329
-</td>
-<td style="text-align:right;">
-0.7918551
+0.7925249
 </td>
 </tr>
 <tr>
 <td style="text-align:right;">
-0.5329690
+7.1154528
 </td>
 <td style="text-align:right;">
-0.0293179
+0.0713170
 </td>
 <td style="text-align:right;">
-0.5038249
+0.4743461
 </td>
 <td style="text-align:right;">
-0.7894451
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-0.5217891
-</td>
-<td style="text-align:right;">
-0.0298769
-</td>
-<td style="text-align:right;">
-0.4769760
-</td>
-<td style="text-align:right;">
-0.7926567
+0.7916930
 </td>
 </tr>
 <tr>
 <td style="text-align:right;">
-0.5463119
+7.1507609
 </td>
 <td style="text-align:right;">
-0.0298400
+0.0694790
 </td>
 <td style="text-align:right;">
-0.4456826
+0.5038553
 </td>
 <td style="text-align:right;">
-0.7939850
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-0.5014391
-</td>
-<td style="text-align:right;">
-0.0297599
-</td>
-<td style="text-align:right;">
-0.4792615
-</td>
-<td style="text-align:right;">
-0.7907455
+0.7894538
 </td>
 </tr>
 <tr>
 <td style="text-align:right;">
-0.5286899
+5.1150637
 </td>
 <td style="text-align:right;">
-0.0289772
+0.0818172
 </td>
 <td style="text-align:right;">
-0.4707119
+0.4764264
+</td>
+<td style="text-align:right;">
+0.7929407
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.8690741
+</td>
+<td style="text-align:right;">
+0.0628850
+</td>
+<td style="text-align:right;">
+0.4458901
+</td>
+<td style="text-align:right;">
+0.7935001
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.8043900
+</td>
+<td style="text-align:right;">
+0.0585492
+</td>
+<td style="text-align:right;">
+0.4792189
+</td>
+<td style="text-align:right;">
+0.7910602
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.5807800
+</td>
+<td style="text-align:right;">
+0.0558510
+</td>
+<td style="text-align:right;">
+0.4706912
 </td>
 <td style="text-align:right;">
 0.7920377
@@ -216,62 +206,51 @@ train_score
 </tr>
 <tr>
 <td style="text-align:right;">
-0.5351713
+0.5296991
 </td>
 <td style="text-align:right;">
-0.0298240
+0.0522580
 </td>
 <td style="text-align:right;">
-0.4846520
+0.4846401
 </td>
 <td style="text-align:right;">
-0.7931860
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-0.5228331
-</td>
-<td style="text-align:right;">
-0.0288620
-</td>
-<td style="text-align:right;">
-0.4645131
-</td>
-<td style="text-align:right;">
-0.7923252
+0.7931793
 </td>
 </tr>
 <tr>
 <td style="text-align:right;">
-0.5216260
+0.5396821
 </td>
 <td style="text-align:right;">
-0.0288401
+0.0521779
 </td>
 <td style="text-align:right;">
-0.5039033
+0.4645201
 </td>
 <td style="text-align:right;">
-0.7905801
+0.7923253
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.5420330
+</td>
+<td style="text-align:right;">
+0.0518708
+</td>
+<td style="text-align:right;">
+0.5038660
+</td>
+<td style="text-align:right;">
+0.7905986
 </td>
 </tr>
 </tbody>
 </table>
 
 The following table shows the results of RandomizedSearchCV for
-determining the best hyperparameters for athe Ridge model.
-
-    ## Rows: 10 Columns: 6
-
-    ## ── Column specification ────────────────────────────────────────────────────────
-    ## Delimiter: ","
-    ## dbl (4): mean_test_score, param_ridge__alpha, param_columntransformer__count...
-    ## lgl (2): param_columntransformer__countvectorizer-1__binary, param_columntra...
-
-    ## 
-    ## ℹ Use `spec()` to retrieve the full column specification for this data.
-    ## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
+determining the best hyperparameters for the Ridge model.
 
 <table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
 <caption>
@@ -302,7 +281,7 @@ param_columntransformer\_\_countvectorizer-2\_\_binary
 <tbody>
 <tr>
 <td style="text-align:right;">
-0.4970319
+0.4970392
 </td>
 <td style="text-align:right;">
 1e+00
@@ -322,10 +301,10 @@ TRUE
 </tr>
 <tr>
 <td style="text-align:right;">
-0.4916746
+0.4940855
 </td>
 <td style="text-align:right;">
-1e+01
+1e+00
 </td>
 <td style="text-align:right;">
 1000
@@ -342,7 +321,7 @@ TRUE
 </tr>
 <tr>
 <td style="text-align:right;">
-0.4521867
+0.4522361
 </td>
 <td style="text-align:right;">
 1e-01
@@ -362,16 +341,36 @@ FALSE
 </tr>
 <tr>
 <td style="text-align:right;">
-0.4519001
+0.4408474
 </td>
 <td style="text-align:right;">
-1e-01
+1e+02
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:left;">
+TRUE
 </td>
 <td style="text-align:right;">
 1000
 </td>
 <td style="text-align:left;">
 FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.4406922
+</td>
+<td style="text-align:right;">
+1e-02
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:left;">
+TRUE
 </td>
 <td style="text-align:right;">
 1000
@@ -382,7 +381,7 @@ TRUE
 </tr>
 <tr>
 <td style="text-align:right;">
-0.4406877
+0.4406878
 </td>
 <td style="text-align:right;">
 1e+02
@@ -402,7 +401,27 @@ TRUE
 </tr>
 <tr>
 <td style="text-align:right;">
-0.4381522
+0.4403347
+</td>
+<td style="text-align:right;">
+1e-02
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:left;">
+TRUE
+</td>
+<td style="text-align:right;">
+1000
+</td>
+<td style="text-align:left;">
+FALSE
+</td>
+</tr>
+<tr>
+<td style="text-align:right;">
+0.4385679
 </td>
 <td style="text-align:right;">
 1e-03
@@ -422,27 +441,7 @@ FALSE
 </tr>
 <tr>
 <td style="text-align:right;">
-0.4378295
-</td>
-<td style="text-align:right;">
-1e-03
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:left;">
-TRUE
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-0.4371169
+0.4384198
 </td>
 <td style="text-align:right;">
 1e-02
@@ -457,12 +456,12 @@ FALSE
 1000
 </td>
 <td style="text-align:left;">
-TRUE
+FALSE
 </td>
 </tr>
 <tr>
 <td style="text-align:right;">
-0.4366650
+0.4360704
 </td>
 <td style="text-align:right;">
 1e-03
@@ -478,26 +477,6 @@ FALSE
 </td>
 <td style="text-align:left;">
 FALSE
-</td>
-</tr>
-<tr>
-<td style="text-align:right;">
-0.4351662
-</td>
-<td style="text-align:right;">
-1e-03
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:left;">
-FALSE
-</td>
-<td style="text-align:right;">
-1000
-</td>
-<td style="text-align:left;">
-TRUE
 </td>
 </tr>
 </tbody>
@@ -511,7 +490,7 @@ and shows the viability of the ridge model.
 <img src="../results/predict_vs_test.png" title="Figure 2. Comparison of actual vs. predicted values" alt="Figure 2. Comparison of actual vs. predicted values" width="100%" />
 
 In order to improve this model in the future where we can have excellent
-reliabilty on the model predictions, we will need the right combination
+reliability on the model predictions, we will need the right combination
 of data. The data used here are mostly Spotify and Billboard-based. In
 the future, we’ll look at aggregating data from other sources as well.
 Also, the ridge model deployed did not perform greatly, we’ll look into
