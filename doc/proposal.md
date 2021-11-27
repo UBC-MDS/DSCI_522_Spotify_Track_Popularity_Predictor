@@ -15,24 +15,4 @@ The first step is that we need to wrangle the raw data to only include the infor
 
 Finally, after completing all necessary analysis to answer our research question, we will share the results as a table and as multiple plots, showing the predicted distribution of song popularity for each feature.
 
-The steps we run our analysis will follow the flowchart bellow.
-![](flowchart.png)
 
-
-# Report
-The final report can be found here.
-
-
-# Dependencies
-* Python 3.9.7 and Python packages:
-    * docopt=0.6.2
-    * pandas=1.3.4
-    * sklearn= 1.0.1
-
-* R version 4.1.1 and R packages:
-    * knitr=1.3
-    * tidyverse=1.3.1
-    * dplyr=1.0.7
-    
-
-# References
