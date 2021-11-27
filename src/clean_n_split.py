@@ -20,6 +20,7 @@ from sklearn.model_selection import cross_val_score, cross_validate, train_test_
 opt = docopt(__doc__)
 
 def main(file_path, out_file):
+
     assert file_path.endswith(".csv"), "file path is not for a .csv document, please enter a .csv file path in --<file_path>"
 
     data= pd.read_csv(file_path)
