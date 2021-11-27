@@ -22,7 +22,7 @@ library(caret)
 
 # Summary
 
-We use Ridge algorithm here to build a regression model to predict the popularity of spotify tracks based on features like danceability, loudness, tempo etc. The popularity score ranges from 0 to 100. A popularity score of 0 means the the song has minute popularity and a popularity score of 100 means the sonf is extremely popular.
+We use Ridge algorithm here to build a regression model to predict the popularity of spotify tracks based on features like danceability, loudness, tempo etc. The popularity score ranges from 0 to 100. A popularity score of 0 means the the song has minute popularity and a popularity score of 100 means the song is extremely popular.
 
 # Introduction
 
@@ -34,7 +34,7 @@ According to this [report](https://www.musicbusinessworldwide.com/over-60000-tra
 
 ## Data
 
-The dataset used in this project was sourced from Tidy Tuesday's github repo [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-09-14/readme.md), and particularly [here](https://query.data.world/s/gvgzoh3hhfj4lg4rbv3x4ah6rm6ta4). The data, however, originally comes from [Data.World](https://data.world/kcmillersean/billboard-hot-100-1958-2017#), [Billboard.com](http://billboard.com/) and Spotify. EAch row from the dataset represents a song's features and a target column specifying the song's popularity on a scale of 0 (least popularity) to 100 (most popularity).
+The dataset used in this project was sourced from Tidy Tuesday's github repo [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-09-14/readme.md), and particularly [here](https://query.data.world/s/gvgzoh3hhfj4lg4rbv3x4ah6rm6ta4). The data, however, originally comes from [Data.World](https://data.world/kcmillersean/billboard-hot-100-1958-2017#), [Billboard.com](http://billboard.com/) and Spotify. Each row from the dataset represents a song's features and a target column specifying the song's popularity on a scale of 0 (least popularity) to 100 (most popularity).
 
 ## Analysis
 
@@ -42,7 +42,7 @@ Ridge model was built to answer our research question (to predict spotify tracks
 
 # Results & Discussion
 
-It is usually very important to look at how the features are co-related and to see what their pairwise distributions look like. Here, the blue plots (and a fitting line) represents the paired distributions of the features, and the other boxes are the paired corrrelations of the features. As can be seen, the correlations are fair and not unreasonable, hence the features can be used together for building the Ridge model that seeks to answer the predictive question.
+It is usually very important to look at how the features are co-related and to see what their pairwise distributions look like. Here, the blue plots (and a fitting line) represents the paired distributions of the features, and the other boxes are the paired correlations of the features. As can be seen, the correlations are fair and not unreasonable, hence the features can be used together for building the Ridge model that seeks to answer the predictive question.
 
 ```{r paired_distribution_and_correlation, echo=FALSE, fig.cap="Figure 1. Pairwise distributions and correlations of all features", out.width = '100%'}
 knitr::include_graphics("../results/paired_distribution_and_correlation.png")
@@ -50,14 +50,14 @@ knitr::include_graphics("../results/paired_distribution_and_correlation.png")
 
 We adopted a simple linear regression model - Ridge algorithm. Our choice of Ridge stems from the fact it it is regularized and take care of the multi-collinearity problem. A 10-fold cross validation was carried out and the train and validation $R^2$ scores reported in the table below from cross-validation
 
-```{r cross-validation, echo=FALSE}
+```{r cross-validation, echo=FALSE, message=FALSE, warning=FALSE}
 kable(read_csv("../results/cv_df.csv"), caption = "Table 1. Train and validation scores from cross-validation") %>%
   kable_styling(full_width = FALSE)
 ```
 
-The following table shows the results of RandomizedSearchCV for determining the best hyperparameters for athe Ridge model.
+The following table shows the results of RandomizedSearchCV for determining the best hyperparameters for the Ridge model.
 
-```{r best_hyperparameters, echo=FALSE}
+```{r best_hyperparameters, echo=FALSE, message=FALSE, warning=FALSE}
 kable(read_csv("../results/best_hyperparameters.csv"), caption = "Table 2. Best hyperparameters from RandomizedSearchCV") %>%
   kable_styling(full_width = FALSE)
 ```
@@ -68,6 +68,6 @@ In order to evaluate the performance of our model, we made some predictions and 
 knitr::include_graphics("../results/predict_vs_test.png")
 ```
 
-In order to improve this model in the future where we can have excellent reliabilty on the model predictions, we will need the right combination of data. The data used here are mostly Spotify and Billboard-based. In the future, we'll look at aggregating data from other sources as well. Also, the ridge model deployed did not perform greatly, we'll look into more sophisticated feature engineering and model training in the future.
+In order to improve this model in the future where we can have excellent reliability on the model predictions, we will need the right combination of data. The data used here are mostly Spotify and Billboard-based. In the future, we'll look at aggregating data from other sources as well. Also, the ridge model deployed did not perform greatly, we'll look into more sophisticated feature engineering and model training in the future.
 
 # References
