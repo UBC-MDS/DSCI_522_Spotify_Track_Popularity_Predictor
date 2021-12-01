@@ -20,14 +20,35 @@ The steps we run our analysis will follow the flowchart bellow.
 
 
 # Report
-The final report can be found here.
+The final report can be found [here](https://github.com/UBC-MDS/DSCI_522_Spotify_Track_Popularity_Predictor/blob/main/doc/spotify-track-predictor-report.md)
 
+# Usage
+To replicate the analysis, clone this GitHub repository, install the dependencies listed below and run the following commands at the command line/terminal from the root directory of this project:
+
+```
+# Download dataset
+python src/download_data.py --url='https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-09-14/audio_features.csv' --out_file=data/raw/audio_audio_features.csv
+
+# Data wrangling, cleaning, and splitting
+python src/clean_n_split.py --file_path=data/raw/audio_audio_features.csv --out_file=data/processed
+
+# Generate Pandas_Profiling EDA report
+python src/eda_profile.py data/processed/train_df.csv ./eda/eda_report.html
+
+# Generate EDA plots in R
+Rscript src/eda_plots.r --train=data/processed/train_df.csv --out_dir=results
+
+# Build Machine Learning model
+python src/preprocess_n_model.py --file_path=data/processed --out_file=results
+```
 
 # Dependencies
 * Python 3.9.7 and Python packages:
     * docopt=0.6.2
     * pandas=1.3.4
-    * sklearn= 1.0.1
+    * numpy=1.21.4
+    * sklearn=1.0.1
+    * seaborn=0.8.1
 
 * R version 4.1.1 and R packages:
     * knitr=1.3
@@ -36,3 +57,15 @@ The final report can be found here.
     
 
 # References
+
+de Jonge, Edwin. 2018. Docopt: Command-Line Interface Specification Language. https://CRAN.R-project.org/package=docopt.
+
+Jed Wing, Max Kuhn. Contributions from, Steve Weston, Andre Williams, Chris Keefer, Allan Engelhardt, Tony Cooper, Zachary Mayer, et al. 2019. Caret: Classification and Regression Training. https://CRAN.R-project.org/package=caret.
+
+Keleshev, Vladimir. 2014. Docopt: Command-Line Interface Description Language. https://github.com/docopt/docopt.
+
+R Core Team. 2019. R: A Language and Environment for Statistical Computing. Vienna, Austria: R Foundation for Statistical Computing. https://www.R-project.org/.
+
+Van Rossum, Guido, and Fred L. Drake. 2009. Python 3 Reference Manual. Scotts Valley, CA: CreateSpace.
+
+Wickham, Hadley. 2017. Tidyverse: Easily Install and Load the ’Tidyverse’. https://CRAN.R-project.org/package=tidyverse.
