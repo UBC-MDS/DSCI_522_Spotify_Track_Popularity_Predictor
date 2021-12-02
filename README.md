@@ -23,7 +23,10 @@ The steps we run our analysis will follow the flowchart bellow.
 The final report can be found [here](https://github.com/UBC-MDS/DSCI_522_Spotify_Track_Popularity_Predictor/blob/main/doc/spotify-track-predictor-report.md)
 
 # Usage
-To replicate the analysis, clone this GitHub repository, install the dependencies listed below and run the following commands at the command line/terminal from the root directory of this project:
+To replicate the analysis, clone this GitHub repository and install the dependencies listed below.
+
+There are then two ways to run this analysis:  
+  1. Run the following commands at the command line/terminal from the root directory of this project:
 
 ```
 # Download dataset
@@ -41,6 +44,17 @@ Rscript src/eda_plots.r --train=data/processed/train_df.csv --out_dir=results
 # Build Machine Learning model
 python src/preprocess_n_model.py --file_path=data/processed --out_file=results
 ```
+  2. Run the following command at the command line/terminal from the root directory of this project:
+
+```
+make all
+```
+
+To reset the repo to a clean state, with no intermediate or results files, run the following command at the command line/terminal from the root directory of this project:
+
+```
+make clean
+```
 
 # Dependencies
 * Python 3.9.7 and Python packages:
@@ -48,7 +62,7 @@ python src/preprocess_n_model.py --file_path=data/processed --out_file=results
     * pandas=1.3.4
     * numpy=1.21.4
     * sklearn=1.0.1
-    * seaborn=0.8.1
+    * altair=4.1.0
 
 * R version 4.1.1 and R packages:
     * knitr=1.3
