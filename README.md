@@ -46,11 +46,15 @@ python src/preprocess_n_model.py --file_path=data/processed --out_file=results
 ```
   2. Run the following command at the command line/terminal from the root directory of this project:
 
-```make all```
+```
+make all
+```
 
 To reset the repo to a clean state, with no intermediate or results files, run the following command at the command line/terminal from the root directory of this project:
 
-```make clean```
+```
+make clean
+```
 
 # Dependencies
 * Python 3.9.7 and Python packages:
