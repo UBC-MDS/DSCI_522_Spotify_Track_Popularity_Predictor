@@ -11,10 +11,9 @@
 
 all : doc/spotify-track-predictor-report.md
 
-
 # Download the data
 data/raw/audio_audio_features.csv : 
-	python src/download_data.py --url='https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-09-1/audio_features.csv' --out_file=data/raw/audio_audio_features.csv
+	python src/download_data.py --url='https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-09-14/audio_features.csv' --out_file=data/raw/audio_audio_features.csv
 
 # Data wrangling, cleaning, and splitting
 data/processed/train_df.csv : data/raw/audio_audio_features.csv
