@@ -1,87 +1,128 @@
-# Song Popularity Predictor
-Data analysis project for DSCI 522 (Data Science workflows); a course in the Master of Data Science program at the University of British Columbia.
+---
+editor_options: 
+  markdown: 
+    wrap: 72
+---
 
-Team Members:
-* Victor Francis
-* Reza Mirzazadeh
-* Qingqing Song
-* Jessie Wong
+# Song Popularity Predictor
+
+Data analysis project for DSCI 522 (Data Science workflows); a course in
+the Master of Data Science program at the University of British
+Columbia.
+
+Team Members: \* Victor Francis \* Reza Mirzazadeh \* Qingqing Song \*
+Jessie Wong
 
 ## Project Description
-This project will use the audio_features dataset, which contains information from spotify tracks, such as performer, genre, duration, loudness, etc. The data is from tidytuesday and was obtained [here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-09-14/readme.md).
-The research question that we aim to answer through this project is to predict the popularity of a song, given various features such as genre, duration, energy, tempo and acousticness. 
 
-The first step is that we need to wrangle the raw data to only include the informative and relevant columns, and to tidy the data in a way that makes analysis possible. Some exploratory data questions we will answer are what pairs of features have strong correlations, and which columns contain the largest number of missing values. One exploratory data analysis figure that we will create is a correlation plot or heatmap to show which pairs of features are correlated. The exploratory data analysis can be found  [here](https://github.com/jessie14/DSCI_522_Spotify_Track_Popularity_Predictor/tree/main/eda).
+This project will use the audio_features dataset, which contains
+information from spotify tracks, such as performer, genre, duration,
+loudness, etc. The data is from tidytuesday and was obtained
+[here](https://github.com/rfordatascience/tidytuesday/blob/master/data/2021/2021-09-14/readme.md).
+The research question that we aim to answer through this project is to
+predict the popularity of a song, given various features such as genre,
+duration, energy, tempo and acousticness.
 
-Finally, after completing all necessary analysis to answer our research question, we will share the results as a table and as multiple plots, showing the predicted distribution of song popularity for each feature.
+The first step is that we need to wrangle the raw data to only include
+the informative and relevant columns, and to tidy the data in a way that
+makes analysis possible. Informative and relevant columns are determined
+by assessing multi-collinearity of the columns and by intuitively
+dropping features that do not contribute to the predictve quality of the
+ridge model. Also, in an effort to tidy the data, we dropped missing
+values and unimportant columns.
+
+Some exploratory data questions we will answer are what pairs of
+features have strong correlations, and which columns contain the largest
+number of missing values. One exploratory data analysis figure that we
+will create is a correlation plot or heatmap to show which pairs of
+features are correlated. The exploratory data analysis can be found
+[here](https://github.com/jessie14/DSCI_522_Spotify_Track_Popularity_Predictor/tree/main/eda).
+
+Finally, after completing all necessary analysis to answer our research
+question, we will share the results as a table and as multiple plots,
+showing the predicted distribution of song popularity for each feature.
 
 The steps we run our analysis will follow the flowchart bellow.
 ![](flowchart.png)
 
-
 ## Report
-The final report can be found [here](https://github.com/UBC-MDS/DSCI_522_Spotify_Track_Popularity_Predictor/blob/main/doc/spotify-track-predictor-report.md)
+
+The final report can be found
+[here](https://github.com/UBC-MDS/DSCI_522_Spotify_Track_Popularity_Predictor/blob/main/doc/spotify-track-predictor-report.md)
 
 ## Usage
-To replicate the analysis, clone this GitHub repository and install the dependencies listed below.
 
-There are then two ways to run this analysis:  
-  1. Run the following commands at the command line/terminal from the root directory of this project:
+To replicate the analysis, clone this GitHub repository and install the
+dependencies listed below.
 
+There are then two ways to run this analysis:\
+1. Run the following commands at the command line/terminal from the root
+directory of this project:
+
+    # Download dataset
+    python src/download_data.py --url='https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-09-14/audio_features.csv' --out_file=data/raw/audio_audio_features.csv
+
+    # Data wrangling, cleaning, and splitting
+    python src/clean_n_split.py --file_path=data/raw/audio_audio_features.csv --out_file=data/processed
+
+    # Generate Pandas_Profiling EDA report
+    python src/eda_profile.py data/processed/train_df.csv ./eda/eda_report.html
+
+    # Generate EDA plots in R
+    Rscript src/eda_plots.r --train=data/processed/train_df.csv --out_dir=results
+
+    # Build Machine Learning model
+    python src/preprocess_n_model.py --file_path=data/processed --out_file=results
+
+2.  Run the following command at the command line/terminal from the root
+    directory of this project:
+
+```{=html}
+<!-- -->
 ```
-# Download dataset
-python src/download_data.py --url='https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-09-14/audio_features.csv' --out_file=data/raw/audio_audio_features.csv
+    make all
 
-# Data wrangling, cleaning, and splitting
-python src/clean_n_split.py --file_path=data/raw/audio_audio_features.csv --out_file=data/processed
+To reset the repo to a clean state, with no intermediate or results
+files, run the following command at the command line/terminal from the
+root directory of this project:
 
-# Generate Pandas_Profiling EDA report
-python src/eda_profile.py data/processed/train_df.csv ./eda/eda_report.html
-
-# Generate EDA plots in R
-Rscript src/eda_plots.r --train=data/processed/train_df.csv --out_dir=results
-
-# Build Machine Learning model
-python src/preprocess_n_model.py --file_path=data/processed --out_file=results
-```
-  2. Run the following command at the command line/terminal from the root directory of this project:
-
-```
-make all
-```
-
-To reset the repo to a clean state, with no intermediate or results files, run the following command at the command line/terminal from the root directory of this project:
-
-```
-make clean
-```
+    make clean
 
 ## Dependencies
-* Python 3.9.7 and Python packages:
-    * docopt=0.6.2
-    * pandas=1.3.4
-    * numpy=1.21.4
-    * sklearn=1.0.1
-    * altair=4.1.0
 
-* R version 4.1.1 and R packages:
-    * knitr=1.3
-    * tidyverse=1.3.1
-    * dplyr=1.0.7
-    
+-   Python 3.9.7 and Python packages:
+
+    -   docopt=0.6.2
+    -   pandas=1.3.4
+    -   numpy=1.21.4
+    -   sklearn=1.0.1
+    -   altair=4.1.0
+
+-   R version 4.1.1 and R packages:
+
+    -   knitr=1.3
+    -   tidyverse=1.3.1
+    -   dplyr=1.0.7
 
 # References
 
-de Jonge, Edwin. 2018. Docopt: Command-Line Interface Specification Language. https://CRAN.R-project.org/package=docopt.
+de Jonge, Edwin. 2018. Docopt: Command-Line Interface Specification
+Language. <https://CRAN.R-project.org/package=docopt>.
 
-Jed Wing, Max Kuhn. Contributions from, Steve Weston, Andre Williams, Chris Keefer, Allan Engelhardt, Tony Cooper, Zachary Mayer, et al. 2019. Caret: Classification and Regression Training. https://CRAN.R-project.org/package=caret.
+Jed Wing, Max Kuhn. Contributions from, Steve Weston, Andre Williams,
+Chris Keefer, Allan Engelhardt, Tony Cooper, Zachary Mayer, et al. 2019.
+Caret: Classification and Regression Training.
+<https://CRAN.R-project.org/package=caret>.
 
-Keleshev, Vladimir. 2014. Docopt: Command-Line Interface Description Language. https://github.com/docopt/docopt.
+Keleshev, Vladimir. 2014. Docopt: Command-Line Interface Description
+Language. <https://github.com/docopt/docopt>.
 
-R Core Team. 2019. R: A Language and Environment for Statistical Computing. Vienna, Austria: R Foundation for Statistical Computing. https://www.R-project.org/.
+R Core Team. 2019. R: A Language and Environment for Statistical
+Computing. Vienna, Austria: R Foundation for Statistical Computing.
+<https://www.R-project.org/>.
 
-Van Rossum, Guido, and Fred L. Drake. 2009. Python 3 Reference Manual. Scotts Valley, CA: CreateSpace.
+Van Rossum, Guido, and Fred L. Drake. 2009. Python 3 Reference Manual.
+Scotts Valley, CA: CreateSpace.
 
-Wickham, Hadley. 2017. Tidyverse: Easily Install and Load the ’Tidyverse’. https://CRAN.R-project.org/package=tidyverse.
-
-
+Wickham, Hadley. 2017. Tidyverse: Easily Install and Load the
+'Tidyverse'. <https://CRAN.R-project.org/package=tidyverse>.
