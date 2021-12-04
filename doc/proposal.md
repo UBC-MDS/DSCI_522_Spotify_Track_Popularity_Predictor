@@ -21,7 +21,8 @@ The research question that we aim to answer through this project is to
 predict the popularity of a song, given various features such as genre,
 duration, energy, tempo and acousticness.
 
-#### Exploratory data analysis (EDA)
+Exploratory data analysis (EDA)
+
 Each row of the data set represents a song with its features and its popularity. we are intrested in predicting songs popularity given song features. Data wrangling was necessary to keep the infomrative and relavant columns to our target.
 
 Prior to analysis, we performed EDA on the features to assess the correlation betweeen features themselves and each feature with the popularity of songs. As a result, we dropped missing values and features that do not contribute to the predictve quality of the ridge model such as spotify_track_preview_url, song_id and time_signature, and we focused on columns such as energy, danceability, speechiness, and loudness.  
