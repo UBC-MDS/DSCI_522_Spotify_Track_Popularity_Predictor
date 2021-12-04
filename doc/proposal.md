@@ -21,20 +21,13 @@ The research question that we aim to answer through this project is to
 predict the popularity of a song, given various features such as genre,
 duration, energy, tempo and acousticness.
 
-The first step is that we need to wrangle the raw data to only include
-the informative and relevant columns, and to tidy the data in a way that
-makes analysis possible. We focused on columns such as energy, danceability, speechiness, and loudness. Informative and relevant columns are determined
-by assessing multi-collinearity of the columns and by intuitively
-dropping features that do not contribute to the predictve quality of the
-ridge model. Also, in an effort to tidy the data, we dropped missing
-values and unimportant columns such as spotify_track_preview_url, song_id and time_signature.
+Exploratory data analysis (EDA)
 
-Some exploratory data questions we will answer are what pairs of
-features have strong correlations, and which columns contain the largest
-number of missing values. One exploratory data analysis figure that we
-will create is a correlation plot or heatmap to show which pairs of
-features are correlated. The exploratory data analysis can be found
-[here](https://github.com/UBC-MDS/DSCI_522_Spotify_Track_Popularity_Predictor/tree/main/eda).
+Each row of the data set represents a song with its features and its popularity. we are intrested in predicting songs popularity given song features. Data wrangling was necessary to keep the infomrative and relavant columns to our target.
+
+Prior to analysis, we performed EDA on the features to assess the correlation betweeen features themselves and each feature with the popularity of songs. As a result, we dropped missing values and features that do not contribute to the predictve quality of the ridge model such as spotify_track_preview_url, song_id and time_signature, and we focused on columns such as energy, danceability, speechiness, and loudness.  
+
+Some exploratory data questions we will answer are what pairs of features have strong correlations, and which columns contain the largest number of missing values. One exploratory data analysis figure that we will create is a correlation plot or heatmap to show which pairs of features are correlated. The exploratory data analysis can be found  [here](https://github.com/jessie14/DSCI_522_Spotify_Track_Popularity_Predictor/tree/main/eda).
 
 Finally, after completing all necessary analysis to answer our research
 question, we will share the results as a table and as multiple plots,
