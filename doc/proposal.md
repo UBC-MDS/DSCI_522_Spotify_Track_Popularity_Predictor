@@ -1,8 +1,3 @@
----
-editor_options: 
-  markdown: 
-    wrap: 72
----
 
 # Song Popularity Predictor
 
@@ -10,8 +5,11 @@ Data analysis project for DSCI 522 (Data Science workflows); a course in
 the Master of Data Science program at the University of British
 Columbia.
 
-Team Members: \* Victor Francis \* Reza Mirzazadeh \* Qingqing Song \*
-Jessie Wong
+Team Members: 
+* Victor Francis 
+* Reza Mirzazadeh 
+* Qingqing Song 
+* Jessie Wong
 
 ## Project Description
 
@@ -25,24 +23,24 @@ duration, energy, tempo and acousticness.
 
 The first step is that we need to wrangle the raw data to only include
 the informative and relevant columns, and to tidy the data in a way that
-makes analysis possible. Informative and relevant columns are determined
+makes analysis possible. We focused on columns such as energy, danceability, speechiness, and loudness. Informative and relevant columns are determined
 by assessing multi-collinearity of the columns and by intuitively
 dropping features that do not contribute to the predictve quality of the
 ridge model. Also, in an effort to tidy the data, we dropped missing
-values and unimportant columns.
+values and unimportant columns such as spotify_track_preview_url, song_id and time_signature.
 
 Some exploratory data questions we will answer are what pairs of
 features have strong correlations, and which columns contain the largest
 number of missing values. One exploratory data analysis figure that we
 will create is a correlation plot or heatmap to show which pairs of
 features are correlated. The exploratory data analysis can be found
-[here](https://github.com/jessie14/DSCI_522_Spotify_Track_Popularity_Predictor/tree/main/eda).
+[here](https://github.com/UBC-MDS/DSCI_522_Spotify_Track_Popularity_Predictor/tree/main/eda).
 
 Finally, after completing all necessary analysis to answer our research
 question, we will share the results as a table and as multiple plots,
 showing the predicted distribution of song popularity for each feature.
 
-The steps we run our analysis will follow the flowchart bellow.
+The steps we run our analysis will follow the flowchart below.
 ![](flowchart.png)
 
 ## Report
@@ -59,6 +57,7 @@ There are then two ways to run this analysis:\
 1. Run the following commands at the command line/terminal from the root
 directory of this project:
 
+```
     # Download dataset
     python src/download_data.py --url='https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-09-14/audio_features.csv' --out_file=data/raw/audio_audio_features.csv
 
@@ -73,21 +72,20 @@ directory of this project:
 
     # Build Machine Learning model
     python src/preprocess_n_model.py --file_path=data/processed --out_file=results
+```
 
 2.  Run the following command at the command line/terminal from the root
     directory of this project:
-
-```{=html}
-<!-- -->
 ```
-    make all
+make all
+```
 
 To reset the repo to a clean state, with no intermediate or results
 files, run the following command at the command line/terminal from the
 root directory of this project:
-
-    make clean
-
+```
+make clean
+```
 ## Dependencies
 
 -   Python 3.9.7 and Python packages:
