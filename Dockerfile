@@ -47,6 +47,7 @@ RUN pip install \
     "ipykernel==6.5.*" \
     "ipython>=7.15" \
     "pandas-profiling==1.4.*" \
-    'altair_saver'
+    'altair_saver' \
+    'selenium'
 
 
