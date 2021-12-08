@@ -47,7 +47,6 @@ RUN pip install \
     "ipykernel==6.5.*" \
     "ipython>=7.15" \
     "pandas-profiling==1.4.*" \
-    'altair_saver' \
-    'selenium'
 
+RUN conda install -c conda-forge altair_saver
 
