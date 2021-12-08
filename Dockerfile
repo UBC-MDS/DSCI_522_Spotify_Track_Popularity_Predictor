@@ -15,7 +15,7 @@ RUN apt-get update -qq && apt-get -y --no-install-recommends install \
     ggthemes \
     caret 
 
-# install the kableExtra package using install.packages
+# install the kableExtra package using install.packages 
 RUN Rscript -e "install.packages('kableExtra')"
 
 # install the anaconda distribution of python
