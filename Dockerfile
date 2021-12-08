@@ -1,4 +1,4 @@
-# Docker file for the group project
+# Docker file for the group project 
 # Group 27 Qingqing Song, Dec, 2021
 
 # use rocker/tidyverse as the base image and
