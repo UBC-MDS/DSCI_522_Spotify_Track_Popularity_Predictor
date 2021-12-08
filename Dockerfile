@@ -46,7 +46,7 @@ RUN pip install \
     "requests==2.24.*" \
     "ipykernel==6.5.*" \
     "ipython>=7.15" \
-    'altair_saver'\
-    "pandas-profiling==1.4.*"
+    "pandas-profiling==1.4.*" \
+    'altair_saver'
 
 
