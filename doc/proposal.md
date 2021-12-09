@@ -34,7 +34,7 @@ question, we will share the results as a table and as multiple plots,
 showing the predicted distribution of song popularity for each feature.
 
 The steps we run our analysis will follow the flowchart below.
-![](../flowchart.png)
+![](../images/flowchart.png)
 
 ## Report
 
