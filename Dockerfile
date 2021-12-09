@@ -13,9 +13,7 @@ RUN Rscript -e "install.packages('GGally')"
 RUN Rscript -e "install.packages('knitr')"
 RUN Rscript -e "install.packages('caret')"
 RUN Rscript -e "install.packages('ggplot2')"
-RUN apt-get install libxtst6
-RUN updatedb
-RUN locate libXtst
+RUN apt-get install libxrender1:i386 libxtst6:i386 libxi6:i386
 
 
 
