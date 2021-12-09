@@ -39,7 +39,6 @@ RUN conda install -y -c anaconda \
     requests
     
 RUN pip install \
-    "jupyter-book==0.12.*" \
     "altair-data-server==0.4.*" \
     "numpy==1.21.*" \
     "pandas" \
