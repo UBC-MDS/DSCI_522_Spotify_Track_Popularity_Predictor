@@ -34,7 +34,7 @@ ENV PATH="/opt/conda/bin:${PATH}"
 # install docopt python package
 RUN conda install -y -c anaconda \ 
     docopt \
-    requests\
+    requests
     
 
 RUN pip install \
