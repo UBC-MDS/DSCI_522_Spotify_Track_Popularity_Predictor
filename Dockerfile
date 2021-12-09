@@ -3,7 +3,7 @@
 
 # use rocker/tidyverse as the base image
 FROM rocker/tidyverse
-
+RUN apt-get update
   
 # install the R packages using install.packages
 RUN Rscript -e "install.packages('kableExtra')"
@@ -13,7 +13,9 @@ RUN Rscript -e "install.packages('GGally')"
 RUN Rscript -e "install.packages('knitr')"
 RUN Rscript -e "install.packages('caret')"
 RUN Rscript -e "install.packages('ggplot2')"
-RUN apt-get install libxtst6:i386
+RUN apt-get install libxtst6
+RUN updatedb
+RUN locate libXtst
 
 
 
@@ -37,7 +39,6 @@ RUN conda install -y -c anaconda \
     docopt \
     requests
     
-
 RUN pip install \
     "jupyter-book==0.12.*" \
     "altair-data-server==0.4.*" \
