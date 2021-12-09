@@ -13,6 +13,7 @@ RUN Rscript -e "install.packages('GGally')"
 RUN Rscript -e "install.packages('knitr')"
 RUN Rscript -e "install.packages('caret')"
 RUN Rscript -e "install.packages('ggplot2')"
+RUN apt-get install libxtst6
 
 
 
