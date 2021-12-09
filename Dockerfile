@@ -3,6 +3,7 @@
 
 # use rocker/tidyverse as the base image
 FROM rocker/tidyverse
+RUN dpkg --add-architecture i386
 RUN apt-get update
   
 # install the R packages using install.packages
