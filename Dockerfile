@@ -7,7 +7,6 @@ FROM rocker/tidyverse
 RUN dpkg --add-architecture i386
 RUN apt-get update
 
-  
 # install the R packages using install.packages
 RUN Rscript -e "install.packages('kableExtra')"
 RUN Rscript -e "install.packages('docopt')"
@@ -17,8 +16,6 @@ RUN Rscript -e "install.packages('knitr')"
 RUN Rscript -e "install.packages('caret')"
 RUN Rscript -e "install.packages('ggplot2')"
 RUN apt-get install libxrender1:i386 libxtst6:i386 libxi6:i386 -y 
-
-
 
 
 # install the anaconda distribution of python
@@ -36,7 +33,7 @@ RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_6
 # put anaconda python in path
 ENV PATH="/opt/conda/bin:${PATH}"
 
-# install docopt python package
+# install python packages
 RUN conda install -y -c anaconda \ 
     docopt \
     requests
@@ -44,9 +41,8 @@ RUN conda install -y -c anaconda \
 RUN pip install \
     requests\
     altair_saver
-    
-#RUN conda install -y -c conda-forge feather-format
 
+# install python packages
 RUN pip install \
     "altair-data-server==0.4.*" \
     "numpy==1.21.*" \
