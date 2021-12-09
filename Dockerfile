@@ -4,6 +4,9 @@
 # use rocker/tidyverse as the base image
 FROM rocker/tidyverse
 
+RUN dpkg --add-architecture i386
+RUN apt-get update
+
   
 # install the R packages using install.packages
 RUN Rscript -e "install.packages('kableExtra')"
@@ -13,6 +16,8 @@ RUN Rscript -e "install.packages('GGally')"
 RUN Rscript -e "install.packages('knitr')"
 RUN Rscript -e "install.packages('caret')"
 RUN Rscript -e "install.packages('ggplot2')"
+RUN apt-get install libxrender1:i386 libxtst6:i386 libxi6:i386 -y 
+
 
 
 
@@ -34,6 +39,9 @@ ENV PATH="/opt/conda/bin:${PATH}"
 # install docopt python package
 RUN conda install -y -c anaconda \ 
     docopt \
+    requests
+    
+RUN pip install \
     requests\
     altair_saver
     
@@ -50,3 +58,7 @@ RUN pip install \
     "ipykernel==6.5.*" \
     "ipython>=7.15" \
     "pandas-profiling==1.4.*" 
+
+RUN conda config --add channels conda-forge
+RUN conda install -c conda-forge altair_saver
+
