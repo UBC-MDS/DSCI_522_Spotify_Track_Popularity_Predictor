@@ -1,0 +1,38 @@
+# Docker file for the Spotify Track Popularity Predictor project
+# Gropu 27, Dec 7 2021
+
+# use rocker/tidyverse as the base image
+FROM rocker/tidyverse
+
+  
+# install the R packages using install.packages
+RUN Rscript -e "install.packages('kableExtra')"
+RUN Rscript -e "install.packages('docopt')"
+RUN Rscript -e "install.packages('ggthemes')"
+RUN Rscript -e "install.packages('GGally')"
+RUN Rscript -e "install.packages('knitr')"
+
+
+
+# install the anaconda distribution of python
+RUN wget --quiet https://repo.anaconda.com/archive/Anaconda3-2019.10-Linux-x86_64.sh -O ~/anaconda.sh && \
+    /bin/bash ~/anaconda.sh -b -p /opt/conda && \
+    rm ~/anaconda.sh && \
+    ln -s /opt/conda/etc/profile.d/conda.sh /etc/profile.d/conda.sh && \
+    echo ". /opt/conda/etc/profile.d/conda.sh" >> ~/.bashrc && \
+    echo "conda activate base" >> ~/.bashrc && \
+    find /opt/conda/ -follow -type f -name '*.a' -delete && \
+    find /opt/conda/ -follow -type f -name '*.js.map' -delete && \
+    /opt/conda/bin/conda clean -afy && \
+    /opt/conda/bin/conda update -n base -c defaults conda
+
+# put anaconda python in path
+ENV PATH="/opt/conda/bin:${PATH}"
+
+# install docopt python package
+RUN conda install -y -c anaconda \ 
+    docopt \
+    requests\
+    altair_saver
+    
+#RUN conda install -y -c conda-forge feather-format
