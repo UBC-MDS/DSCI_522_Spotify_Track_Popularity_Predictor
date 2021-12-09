@@ -35,9 +35,7 @@ ENV PATH="/opt/conda/bin:${PATH}"
 RUN conda install -y -c anaconda \ 
     docopt \
     requests\
-    altair_saver
     
-#RUN conda install -y -c conda-forge feather-format
 
 RUN pip install \
     "jupyter-book==0.12.*" \
@@ -50,3 +48,6 @@ RUN pip install \
     "ipykernel==6.5.*" \
     "ipython>=7.15" \
     "pandas-profiling==1.4.*" 
+
+RUN conda config --add channels conda-forge
+RUN conda install -c conda-forge altair_saver
