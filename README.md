@@ -21,8 +21,8 @@ Some exploratory data questions we will answer are what pairs of features have s
 
 Finally, after completing all necessary analysis to answer our research question, we will share the results as a table and as multiple plots, showing the predicted distribution of song popularity for each feature.
 
-The steps we run our analysis will follow the flowchart bellow.
-![](Makefile.png)
+The steps we run our analysis will follow the flowchart below.
+![](images/Makefile.png)
 
 
 # Report
