@@ -11,6 +11,8 @@ RUN Rscript -e "install.packages('docopt')"
 RUN Rscript -e "install.packages('ggthemes')"
 RUN Rscript -e "install.packages('GGally')"
 RUN Rscript -e "install.packages('knitr')"
+RUN Rscript -e "install.packages('caret')"
+RUN Rscript -e "install.packages('ggplot2')"
 
 
 
@@ -36,3 +38,15 @@ RUN conda install -y -c anaconda \
     altair_saver
     
 #RUN conda install -y -c conda-forge feather-format
+
+RUN pip install \
+    "jupyter-book==0.12.*" \
+    "altair-data-server==0.4.*" \
+    "numpy==1.21.*" \
+    "pandas" \
+    "altair==4.1.*" \
+    "scikit-learn==1.0.*" \
+    "scipy==1.7.*" \
+    "ipykernel==6.5.*" \
+    "ipython>=7.15" \
+    "pandas-profiling==1.4.*" 
