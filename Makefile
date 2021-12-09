@@ -44,7 +44,7 @@ doc/spotify-track-predictor-report.md : doc/spotify-track-predictor-report.Rmd r
 	Rscript -e "rmarkdown::render('doc/spotify-track-predictor-report.Rmd')"
 	
 clean :
-	rm -rf results/best_hyperparameters.csv results/cv_df.csv data/raw/audio_audio_features.csv 
+	rm -rf results/best_hyperparameters.csv results/cv_df.csv data/raw/audio_features.csv data/processed/train_df.csv data/processed/test_df.csv
 	rm -rf results/paired_distribution_and_correlation.png results/predict_vs_test.png
 	rm -rf doc/spotify-track-predictor-report.md
 	
