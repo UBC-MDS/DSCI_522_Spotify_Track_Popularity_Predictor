@@ -21,36 +21,30 @@ Some exploratory data questions we will answer are what pairs of features have s
 
 Finally, after completing all necessary analysis to answer our research question, we will share the results as a table and as multiple plots, showing the predicted distribution of song popularity for each feature.
 
-The steps we run our analysis will follow the flowchart bellow.
-![](Makefile.png)
+The steps we run our analysis will follow the flowchart below.
+![](images/Makefile.png)
 
 
 # Report
 The final report can be found [here](https://github.com/UBC-MDS/DSCI_522_Spotify_Track_Popularity_Predictor/blob/main/doc/spotify-track-predictor-report.md)
 
 # Usage
-To replicate the analysis, clone this GitHub repository and install the dependencies listed below.
+There are two suggested ways to run this analysis:
 
-There are then two ways to run this analysis:  
-  1. Run the following commands at the command line/terminal from the root directory of this project:
-
+1. Using Docker
+To replicate the analysis, install Docker. 
+Then clone this GitHub repository and run the following command at the command line/terminal from the root directory of this project:
 ```
-# Download dataset
-python src/download_data.py --url='https://raw.githubusercontent.com/rfordatascience/tidytuesday/master/data/2021/2021-09-14/audio_features.csv' --out_file=data/raw/audio_audio_features.csv
-
-# Data wrangling, cleaning, and splitting
-python src/clean_n_split.py --file_path=data/raw/audio_audio_features.csv --out_file=data/processed
-
-# Generate Pandas_Profiling EDA report
-python src/eda_profile.py data/processed/train_df.csv ./eda/eda_report.html
-
-# Generate EDA plots in R
-Rscript src/eda_plots.r --train=data/processed/train_df.csv --out_dir=results
-
-# Build Machine Learning model
-python src/preprocess_n_model.py --file_path=data/processed --out_file=results
+docker run --rm -v /$(pwd):/home/spotify qq1207/spotify_track_popularity_predictor make -C /../home/spotify all
 ```
-  2. Run the following command at the command line/terminal from the root directory of this project:
+
+To reset the repo to a clean state, with no intermediate or results files, run the following command at the command line/terminal from the root directory of this project:
+```
+docker run --rm -v /$(pwd):/home/spotify qq1207/spotify_track_popularity_predictor make -C /../home/spotify clean
+```
+
+2. Without using Docker
+To replicate the analysis, clone this GitHub repository, install the dependencies listed below, and run the following command at the command line/terminal from the root directory of this project:
 
 ```
 make all
