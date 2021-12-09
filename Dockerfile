@@ -1,4 +1,4 @@
-# Docker file for the Spotify Track Popularity Predictor project    
+# Docker file for the Spotify Track Popularity Predictor project     
 # Group 27, Dec 7 2021
 
 # use rocker/tidyverse as the base image
