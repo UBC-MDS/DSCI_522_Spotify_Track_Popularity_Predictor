@@ -3,8 +3,10 @@
 
 # use rocker/tidyverse as the base image
 FROM rocker/tidyverse
+
 RUN dpkg --add-architecture i386
 RUN apt-get update
+
   
 # install the R packages using install.packages
 RUN Rscript -e "install.packages('kableExtra')"
@@ -15,6 +17,7 @@ RUN Rscript -e "install.packages('knitr')"
 RUN Rscript -e "install.packages('caret')"
 RUN Rscript -e "install.packages('ggplot2')"
 RUN apt-get install libxrender1:i386 libxtst6:i386 libxi6:i386 -y 
+
 
 
 
@@ -39,6 +42,13 @@ RUN conda install -y -c anaconda \
     requests
     
 RUN pip install \
+    requests\
+    altair_saver
+    
+#RUN conda install -y -c conda-forge feather-format
+
+RUN pip install \
+    "jupyter-book==0.12.*" \
     "altair-data-server==0.4.*" \
     "numpy==1.21.*" \
     "pandas" \
@@ -51,3 +61,4 @@ RUN pip install \
 
 RUN conda config --add channels conda-forge
 RUN conda install -c conda-forge altair_saver
+
