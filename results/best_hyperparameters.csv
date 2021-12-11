@@ -1,0 +1,11 @@
+mean_test_score,param_ridge__alpha,param_columntransformer__countvectorizer-1__max_features,param_columntransformer__countvectorizer-1__binary,param_columntransformer__countvectorizer-2__max_features,param_columntransformer__countvectorizer-2__binary
+0.4971354630870235,1.0,1000,True,1000,False
+0.4943319315949556,1.0,1000,False,1000,False
+0.4933197462899802,10.0,1000,True,1000,False
+0.4552179217443252,0.1,1000,True,1000,False
+0.4523615051660249,0.1,1000,False,1000,False
+0.45179976180579284,0.1,1000,False,1000,True
+0.4408479445337624,100.0,1000,True,1000,False
+0.440248251567516,100.0,1000,False,1000,False
+0.43842272425171896,0.001,1000,True,1000,True
+0.43633324814523783,0.001,1000,False,1000,False
